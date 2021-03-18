@@ -10,31 +10,35 @@ class Hangman {
 
   pickWord() {
     // ... your code goes here
-    return words[Math.floor(Math.random() * this.words.length)];
+    return this.words[Math.floor(Math.random() * this.words.length)];
   }
 
   checkIfLetter(keyCode) {
-    let keyLetter = String.fromCharCode(keyCode);
-    return [...this.secretWord].includes(keyLetter)
+    console.log(keyCode)
+    if (keyCode < "a" && keyCode < "z") {
+      return false 
+    }
+    return true
+    //[...this.secretWord].includes(keyLetter))
+    //let keyLetter = String.fromCharCode(keyCode);
   }
 
   checkClickedLetters(letter) {
-    return this.letters.includes(letter);
+    return !(this.letters.includes(letter));
   }
 
   addCorrectLetter(letter) {
-    let KeyCode = letter.fromCharCode(0);
-    if(this.checkIfLetter(KeyCode)) {
+    console.log(letter)
+    if(!(this.checkIfLetter(letter))) {
       this.guessedLetters += letter
     } 
   }
 
   addWrongLetter(letter) {
-    let KeyCode = letter.fromCharCode(0);
-    if(!this.checkIfLetter(KeyCode)) {
+    if(this.checkIfLetter(letter)) {
       this.letters.push(letter);
-      this.errorsLeft -1;
     } 
+    this.errorsLeft -= 1
   }
 
   checkGameOver() {
