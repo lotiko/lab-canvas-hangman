@@ -1,21 +1,26 @@
-
 body {
-  margin:0;
-  display:flex; min-height:100vh;
+  margin: 0;
+  display: flex;
+  min-height: 100vh;
 }
-body >.container {margin:auto;}
+body > .container {
+  margin: auto;
+}
 
-header {text-align:center;}
+header {
+  text-align: center;
+}
 
 .game-logo {
-  display:block; width:400px;
-  margin-bottom:40px;
+  display: block;
+  width: 400px;
+  margin-bottom: 40px;
 }
 
 #start-game-button {
   border: 0;
   box-shadow: 0;
-  background: linear-gradient(to bottom, #9DA400, #BAC600);
+  background: linear-gradient(to bottom, #9da400, #bac600);
   color: #fff;
   padding: 15px 30px;
   font-size: 24px;
@@ -23,8 +28,16 @@ header {text-align:center;}
 }
 
 #hangman {
-
+  outline: 1px solid;
 }
 
-.container {display:inline-block; position: relative;}
-.container header {position:absolute; top:0; left:50%; transform:translateX(-50%);}
+.container {
+  display: inline-block;
+  position: relative;
+}
+.container header {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}

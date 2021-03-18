@@ -14,31 +14,31 @@ class Hangman {
   }
 
   checkIfLetter(keyCode) {
-    console.log(keyCode)
+    console.log(keyCode);
     if (keyCode < "a" && keyCode < "z") {
-      return false 
+      return false;
     }
-    return true
+    return true;
     //[...this.secretWord].includes(keyLetter))
     //let keyLetter = String.fromCharCode(keyCode);
   }
 
   checkClickedLetters(letter) {
-    return !(this.letters.includes(letter));
+    return !this.letters.includes(letter);
   }
 
   addCorrectLetter(letter) {
-    console.log(letter)
-    if(!(this.checkIfLetter(letter))) {
-      this.guessedLetters += letter
-    } 
+    console.log(letter);
+    if (!this.checkIfLetter(letter)) {
+      this.guessedLetters += letter;
+    }
   }
 
   addWrongLetter(letter) {
-    if(this.checkIfLetter(letter)) {
+    if (this.checkIfLetter(letter)) {
       this.letters.push(letter);
-    } 
-    this.errorsLeft -= 1
+    }
+    this.errorsLeft -= 1;
   }
 
   checkGameOver() {
@@ -59,9 +59,9 @@ if (startGameButton) {
     hangman = new Hangman(["node", "javascript", "react", "miami", "paris", "amsterdam", "lisboa"]);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangmanCanvas.createBoard();
     // ... your code goes here
   });
 }
