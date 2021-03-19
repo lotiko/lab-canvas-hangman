@@ -25,8 +25,9 @@ class Hangman {
 
   checkClickedLetters(letter) {
     let isAlreadyClicked = this.letters.includes(letter);
+    console.log(this.letters.includes(letter), "in checkClicked", this.words.includes(letter));
     if (!isAlreadyClicked) {
-      if (this.words.includes(letter)) {
+      if (this.secretWord.includes(letter)) {
         this.addCorrectLetter(letter);
       } else {
         this.addWrongLetter(letter);
@@ -34,6 +35,10 @@ class Hangman {
       return true;
     }
     return false;
+  }
+  checkUserHasGuess(oldGuessedLength) {
+    console.log(oldGuessedLength, this.guessedLetters, this.secretWord);
+    return oldGuessedLength < this.guessedLetters.length;
   }
 
   addCorrectLetter(letter) {
@@ -44,10 +49,8 @@ class Hangman {
   }
 
   addWrongLetter(letter) {
-    if (!this.letters.includes(letter)) {
-      this.letters.push(letter);
-      this.errorsLeft -= 1;
-    }
+    this.letters.push(letter);
+    this.errorsLeft -= 1;
   }
 
   checkGameOver() {
@@ -77,15 +80,15 @@ if (startGameButton) {
 
 document.addEventListener("keydown", (ev) => {
   let letter = ev.key;
-  let isLetter = hangman.checkIfLetter(letter);
-  if (!isLetter) {
+  let oldGuessedLength = hangman.guessedLetters.length || 0;
+  if (!hangman.checkIfLetter(letter)) {
     return;
   } else {
-    let isAlreadyClicked = hangman.checkClickedLetters(letter);
-    if (isAlreadyClicked) {
+    if (!hangman.checkClickedLetters(letter)) {
       return;
     } else {
-      hangmanCanvas.writeCorrectLetter(letter);
+      if (hangman.checkUserHasGuess(oldGuessedLength)) hangmanCanvas.writeCorrectLetter(letter);
+      else hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft);
     }
   }
 });
