@@ -20,7 +20,7 @@ class HangmanCanvas {
   }
 
   createBoard() {
-    this.context.canvas.width = this.context.canvas.width;
+    this.context.clearRect(0, 0, 1200, 800);
     this.drawLines();
     this.writeWrongLetter();
   }
@@ -68,7 +68,6 @@ class HangmanCanvas {
     this.context.beginPath();
     this.context.clearRect(300, 300, 600, 450);
     this.context.closePath();
-    console.log(errorsLeft - i);
     while (i >= errorsLeft) {
       this.arrDrawHangman[i - errorsLeft]();
       i--;
@@ -76,11 +75,21 @@ class HangmanCanvas {
   }
 
   gameOver() {
-    // ... your code goes here
+    this.context.clearRect(0, 0, 1200, 800);
+    let imageOver = new Image(); // Create new <img> element
+    imageOver.src = "../images/gameover.png"; // Set source path
+    imageOver.addEventListener("load", () => {
+      this.context.drawImage(imageOver, 330, 300);
+    });
   }
 
   winner() {
-    // ... your code goes here
+    this.context.clearRect(0, 0, 1200, 800);
+    let imageWin = new Image(); // Create new <img> element
+    imageWin.src = "../images/awesome.png"; // Set source path
+    imageWin.addEventListener("load", () => {
+      this.context.drawImage(imageWin, 50, 300, 1000, 500);
+    });
   }
   drawfoot() {
     this.context.beginPath();

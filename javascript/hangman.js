@@ -53,22 +53,24 @@ class Hangman {
   }
 
   checkWinner() {
-    return this.guessedLetters.length === this.secretWord.length ? true : false;
+    return this.guessedLetters.length === this.secretWord.length;
   }
 }
 
 let hangman;
 
 const startGameButton = document.getElementById("start-game-button");
+const imgLogo = document.querySelector(".game-logo");
 
 if (startGameButton) {
   startGameButton.addEventListener("click", (event) => {
     hangman = new Hangman(["node", "javascript", "react", "miami", "paris", "amsterdam", "lisboa"]);
-
+    imgLogo.hidden = false;
     // HINT (uncomment when start working on the canvas portion of the lab)
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard();
+    // hangmanCanvas.gameOver();
 
     // ... your code goes here
   });
@@ -77,6 +79,7 @@ if (startGameButton) {
 document.addEventListener("keydown", (ev) => {
   let letter = ev.key;
   let oldGuessedLength = hangman.guessedLetters.length || 0;
+
   if (!hangman.checkIfLetter(letter)) {
     return;
   } else {
@@ -85,6 +88,17 @@ document.addEventListener("keydown", (ev) => {
     } else {
       if (hangman.checkUserHasGuess(oldGuessedLength)) hangmanCanvas.writeCorrectLetter(letter);
       else hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft);
+    }
+    let hasLose = hangman.checkGameOver();
+    let hasWin = hangman.checkWinner();
+    if (hasLose) {
+      imgLogo.hidden = true;
+      hangmanCanvas.gameOver();
+      return;
+    }
+    if (hasWin) {
+      hangmanCanvas.winner();
+      return;
     }
   }
 });
