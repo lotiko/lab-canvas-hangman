@@ -4,7 +4,7 @@ class HangmanCanvas {
     // ... your code goes here
     this.secretWord = secretWord;
     this.secretWordToShow = Array(secretWord.length).fill("_ ");
-    this.wrongLetter = ["d", "h", "u", "t", "h", "h", "p"];
+    this.wrongLetter = [];
     this.heigthLetters = 40;
     this.startPointHeigthWordToGuess = 150;
   }
@@ -41,11 +41,10 @@ class HangmanCanvas {
     this.context.beginPath();
     this.context.font = "25px Arial";
     this.context.fillText("Errors left: " + errorsLeft, 910, 80);
+    this.context.fillText("Wrong letters choose:", 910, 130);
     if (this.wrongLetter.length > 0) {
-      this.context.fillText("Wrong letters choose:", 910, 130);
       this.context.fillText(this.wrongLetter.join(" "), 910, 160);
     }
-
     this.context.closePath();
   }
 

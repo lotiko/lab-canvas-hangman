@@ -31,23 +31,23 @@ class Hangman {
       } else {
         this.addWrongLetter(letter);
       }
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
 
   addCorrectLetter(letter) {
-    console.log(letter);
-    if (!this.checkIfLetter(letter)) {
-      this.guessedLetters += letter;
-    }
+    // console.log(letter);
+    // if (!this.checkIfLetter(letter)) {
+    this.guessedLetters += letter;
+    // }
   }
 
   addWrongLetter(letter) {
-    if (this.checkIfLetter(letter)) {
+    if (!this.letters.includes(letter)) {
       this.letters.push(letter);
+      this.errorsLeft -= 1;
     }
-    this.errorsLeft -= 1;
   }
 
   checkGameOver() {
