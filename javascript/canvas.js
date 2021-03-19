@@ -3,52 +3,50 @@ class HangmanCanvas {
     this.context = document.getElementById("hangman").getContext("2d");
     // ... your code goes here
     this.secretWord = secretWord;
-    this.widthPointBottomLetters = [];
+    this.secretWordToShow = Array(secretWord.length).fill("_ ");
+    this.wrongLetter = ["d", "h", "u", "t", "h", "h", "p"];
     this.heigthLetters = 40;
-    this.startPointHeigthWordToGuess = 500;
+    this.startPointHeigthWordToGuess = 150;
   }
 
   createBoard() {
-    // ... your code goes here
     this.context.canvas.width = this.context.canvas.width;
     this.drawLines();
+    this.writeWrongLetter();
   }
 
   drawLines() {
-    let nbLine = this.secretWord.length;
-    let i = 0;
-    let startPointWidth = 500;
-    while (i < nbLine) {
-      this.context.beginPath();
-      this.context.lineWidth = 4;
-      this.context.moveTo(startPointWidth, this.startPointHeigthWordToGuess);
-      this.context.lineTo(startPointWidth + 30, this.startPointHeigthWordToGuess);
-      this.context.stroke();
-      this.widthPointLetters.push(startPointWidth);
-      startPointWidth += 40;
-      i++;
-    }
+    this.context.beginPath();
+    this.context.font = "40px Arial";
+    this.context.fillText(this.secretWordToShow.join(""), 20, this.startPointHeigthWordToGuess);
+    this.context.closePath();
   }
 
   writeCorrectLetter(letter) {
-    let indexOfLettersInWord = [];
+    this.context.canvas.width = this.context.canvas.width;
     for (let index = 0; index < this.secretWord.length; index++) {
       const letterInWord = this.secretWord[index];
       if (letterInWord === letter) {
-        indexOfLettersInWord.push(i);
+        this.secretWordToShow[index] = letter + " ";
       }
     }
-    indexOfLettersInWord.map((index) => {
-      this.context.beginPath();
-      this.context.font = "30px Arial";
-      let startWidthPointletter = this.widthPointBottomLetters[index] + 30;
-      this.context.fillText(letter, startWidthPointletter, this.startPointHeigthWordToGuess);
-      this.context.closePath();
-    });
+    this.context.beginPath();
+    this.context.font = "40px Arial";
+    this.context.fillText(this.secretWordToShow.join(""), 20, this.startPointHeigthWordToGuess);
+    this.context.closePath();
+    this.writeWrongLetter();
   }
 
-  writeWrongLetter(letter, errorsLeft) {
-    // ... your code goes here
+  writeWrongLetter(letter, errorsLeft = 8) {
+    this.context.beginPath();
+    this.context.font = "25px Arial";
+    this.context.fillText("Errors left: " + errorsLeft, 910, 80);
+    if (this.wrongLetter.length > 0) {
+      this.context.fillText("Wrong letters choose:", 910, 130);
+      this.context.fillText(this.wrongLetter.join(" "), 910, 160);
+    }
+
+    this.context.closePath();
   }
 
   drawHangman(errorsLeft) {

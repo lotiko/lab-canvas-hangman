@@ -24,7 +24,16 @@ class Hangman {
   }
 
   checkClickedLetters(letter) {
-    return !this.letters.includes(letter);
+    let isAlreadyClicked = this.letters.includes(letter);
+    if (!isAlreadyClicked) {
+      if (this.words.includes(letter)) {
+        this.addCorrectLetter(letter);
+      } else {
+        this.addWrongLetter(letter);
+      }
+      return false;
+    }
+    return true;
   }
 
   addCorrectLetter(letter) {
@@ -66,7 +75,17 @@ if (startGameButton) {
   });
 }
 
-document.addEventListener("keydown", (event) => {
-  // React to user pressing a key
-  // ... your code goes here
+document.addEventListener("keydown", (ev) => {
+  let letter = ev.key;
+  let isLetter = hangman.checkIfLetter(letter);
+  if (!isLetter) {
+    return;
+  } else {
+    let isAlreadyClicked = hangman.checkClickedLetters(letter);
+    if (isAlreadyClicked) {
+      return;
+    } else {
+      hangmanCanvas.writeCorrectLetter(letter);
+    }
+  }
 });
