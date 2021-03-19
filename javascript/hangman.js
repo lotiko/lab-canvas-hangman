@@ -25,7 +25,6 @@ class Hangman {
 
   checkClickedLetters(letter) {
     let isAlreadyClicked = this.letters.includes(letter);
-    console.log(this.letters.includes(letter), "in checkClicked", this.words.includes(letter));
     if (!isAlreadyClicked) {
       if (this.secretWord.includes(letter)) {
         this.addCorrectLetter(letter);
@@ -37,15 +36,11 @@ class Hangman {
     return false;
   }
   checkUserHasGuess(oldGuessedLength) {
-    console.log(oldGuessedLength, this.guessedLetters, this.secretWord);
     return oldGuessedLength < this.guessedLetters.length;
   }
 
   addCorrectLetter(letter) {
-    // console.log(letter);
-    // if (!this.checkIfLetter(letter)) {
     this.guessedLetters += letter;
-    // }
   }
 
   addWrongLetter(letter) {
