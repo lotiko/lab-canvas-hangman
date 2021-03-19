@@ -69,7 +69,6 @@ if (startGameButton) {
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard();
-    hangmanCanvas.drawHangman(8);
 
     // ... your code goes here
   });

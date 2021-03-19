@@ -49,8 +49,8 @@ class HangmanCanvas {
     // this.writeWrongLetter(letter, this.errorsLeft);
   }
 
-  writeWrongLetter(letter, errorsLeft = 8) {
-    this.wrongLetter.push(letter);
+  writeWrongLetter(letter = false, errorsLeft = 8) {
+    letter && this.wrongLetter.push(letter);
     this.context.beginPath();
     this.context.clearRect(900, 0, 1200 - 900, 200);
     this.context.font = "25px Arial";
@@ -60,18 +60,18 @@ class HangmanCanvas {
       this.context.fillText(this.wrongLetter.join(" "), 910, 160);
     }
     this.context.closePath();
+    this.drawHangman(errorsLeft);
   }
 
   drawHangman(errorsLeft) {
-    let i = 0;
+    let i = 7;
     this.context.beginPath();
-    this.context.strokeStyle = "green";
-    this.context.strokeRect(300, 300, 600, 450);
+    this.context.clearRect(300, 300, 600, 450);
     this.context.closePath();
-
-    while (i < errorsLeft) {
-      this.arrDrawHangman[i]();
-      i++;
+    console.log(errorsLeft - i);
+    while (i >= errorsLeft) {
+      this.arrDrawHangman[i - errorsLeft]();
+      i--;
     }
   }
 
